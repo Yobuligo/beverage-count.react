@@ -1,4 +1,4 @@
-import { InputButton } from "../../../components/InputButton";
+import { InputButton } from "../../../components/inputButton/InputButton";
 import { useTranslation } from "../../../hooks/useTranslation";
 import { IBeverageCardProps } from "./IBeverageCardProps";
 
