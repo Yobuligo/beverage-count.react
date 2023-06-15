@@ -1,10 +1,10 @@
 import "./App.css";
-import { InputButton } from "./components/InputButton";
+import { BeverageCardList } from "./features/beverage/list/BeverageCardList";
 
 function App() {
   return (
     <>
-      <InputButton caption="+" initialValue={""} onClick={()=>{}}/>
+      <BeverageCardList />
     </>
   );
 }
