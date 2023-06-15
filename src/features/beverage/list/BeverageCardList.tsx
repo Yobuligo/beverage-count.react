@@ -10,6 +10,7 @@ export const BeverageCardList: React.FC = () => {
         caption="+"
         initialValue={""}
         placeholder={t.beverageTitle}
+        onClick={(value) => {}}
       />
     </>
   );

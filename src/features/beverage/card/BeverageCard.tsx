@@ -1,5 +1,18 @@
-import { IBeverageCardProps } from "./IBeverageCardProps"
+import { InputButton } from "../../../components/InputButton";
+import { useTranslation } from "../../../hooks/useTranslation";
+import { IBeverageCardProps } from "./IBeverageCardProps";
 
-export const BeverageCard: React.FC<IBeverageCardProps> = (props)=>{
-    return <></>
-}
+export const BeverageCard: React.FC<IBeverageCardProps> = (props) => {
+  const { t } = useTranslation();
+
+  return (
+    <>
+      {props.beverage.title}
+      <InputButton
+        caption="+"
+        initialValue={0}
+        placeholder={t.beverageVolume}
+      />
+    </>
+  );
+};
