@@ -23,7 +23,13 @@ export const BeverageCard: React.FC<IBeverageCardProps> = (props) => {
     <Card>
       <div>{props.beverage.title}</div>
       <div>
-        <VolumeCardList volumes={props.beverage.volumes} />
+        <VolumeCardList
+          volumes={props.beverage.volumes}
+          onAddConsumption={(volume, consumption) => {
+            volume.consumptions.push(consumption);
+            context.beverages.onUpdate(props.beverage);
+          }}
+        />
       </div>
       <InputButton
         caption="+"

@@ -1,12 +1,11 @@
 import { IVolumeCardProps } from "./IVolumeCardProps";
 
 export const VolumeCard: React.FC<IVolumeCardProps> = (props) => {
-  const onAddConsumption = () => {
-    props.volume.consumptions.push({
+  const onAddConsumption = () =>
+    props.onAddConsumption({
       id: crypto.randomUUID(),
       createAt: new Date(),
     });
-  };
 
   return (
     <>
