@@ -28,7 +28,7 @@ export const BeverageCardList: React.FC = () => {
       <InputButton
         caption="+"
         initialValue={""}
-        placeholder={t.beverageTitle}
+        placeholder={t.enterBeverageTitle}
         onClick={onAdd}
       />
     </>
