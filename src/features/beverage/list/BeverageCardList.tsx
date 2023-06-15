@@ -3,13 +3,16 @@ import { InputButton } from "../../../components/inputButton/InputButton";
 import { AppContext } from "../../../context/AppContext";
 import { useTranslation } from "../../../hooks/useTranslation";
 import { BeverageCard } from "../card/BeverageCard";
+import styles from "./BeverageCardList.module.css";
 
 export const BeverageCardList: React.FC = () => {
   const { t } = useTranslation();
   const context = useContext(AppContext);
 
   const items = context.beverages.dataObjects.map((beverage) => (
-    <BeverageCard key={beverage.id} beverage={beverage} />
+    <div className={styles.beverageCardListItem}>
+      <BeverageCard key={beverage.id} beverage={beverage} />
+    </div>
   ));
 
   const onAdd = (title: string): void =>
