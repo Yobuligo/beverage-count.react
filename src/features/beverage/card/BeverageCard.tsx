@@ -30,6 +30,7 @@ export const BeverageCard: React.FC<IBeverageCardProps> = (props) => {
         initialValue={0}
         placeholder={t.enterBeverageVolume}
         onClick={onAddVolume}
+        triggerOnClickOnEnter
       />
     </Card>
   );

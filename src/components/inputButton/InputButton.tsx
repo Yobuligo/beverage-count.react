@@ -60,6 +60,11 @@ export function InputButton<T>(props: IInputButtonProps<T>) {
         placeholder={props.placeholder}
         value={value as string}
         onChange={onChangeValue}
+        onKeyUp={(event: React.KeyboardEvent<HTMLInputElement>) => {
+          if (props.triggerOnClickOnEnter === true && event.key === "Enter") {
+            onClick();
+          }
+        }}
       />
       <button onClick={onClick}>{props.caption}</button>
     </>

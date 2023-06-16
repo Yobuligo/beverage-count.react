@@ -31,6 +31,7 @@ export const BeverageCardList: React.FC = () => {
         initialValue={""}
         placeholder={t.enterBeverageTitle}
         onClick={onAdd}
+        triggerOnClickOnEnter
       />
       <Summary />
       {items}
