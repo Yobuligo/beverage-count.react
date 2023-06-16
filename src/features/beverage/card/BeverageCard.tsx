@@ -26,6 +26,7 @@ export const BeverageCard: React.FC<IBeverageCardProps> = (props) => {
       </div>
       <InputButton
         caption="+"
+        clearOnClick
         initialValue={0}
         placeholder={t.enterBeverageVolume}
         onClick={onAddVolume}

@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { InputButton } from "../../../components/inputButton/InputButton";
 import { AppContext } from "../../../context/AppContext";
 import { useTranslation } from "../../../hooks/useTranslation";
+import { Summary } from "../../summary/Summary";
 import { BeverageCard } from "../card/BeverageCard";
 import styles from "./BeverageCardList.module.css";
 
@@ -24,13 +25,15 @@ export const BeverageCardList: React.FC = () => {
 
   return (
     <>
-      {items}
       <InputButton
         caption="+"
+        clearOnClick
         initialValue={""}
         placeholder={t.enterBeverageTitle}
         onClick={onAdd}
       />
+      <Summary />
+      {items}
     </>
   );
 };
