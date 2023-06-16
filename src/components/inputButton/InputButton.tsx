@@ -21,8 +21,19 @@ export function InputButton<T>(props: IInputButtonProps<T>) {
     }
   }, [props.initialValue]);
 
+  const convertValue = (value: string): T => {
+    switch (typeof props.initialValue) {
+      case "string":
+        return value as T;
+      case "number":
+        return +value as T;
+      default:
+        return value as T;
+    }
+  };
+
   const onChangeValue = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setValue(event.target.value as T);
+    setValue(convertValue(event.target.value));
 
   const onClick = () => props.onClick?.(value);
 

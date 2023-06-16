@@ -11,10 +11,20 @@ export const Summary: React.FC = () => {
       volumes.push(...beverage.volumes)
     );
     return volumes;
-  }, []);
+  }, [context.beverages.dataObjects]);
 
-  context.consumptions.dataObjects.forEach((consumption) => {
-    const volume = volumes.find((element) => element.id === consumption.volumeId);
-  });
-  return <>ml</>;
+  const sum = () => {
+    let sum: number = 0;
+    context.consumptions.dataObjects.forEach((consumption) => {
+      const volume = volumes.find(
+        (element) => element.id === consumption.volumeId
+      );
+      if (!volume) {
+        throw new Error();
+      }
+      sum = sum + volume.size;
+    });
+    return sum;
+  };
+  return <>{sum()} ml</>;
 };
