@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { IDataAccessObject } from "../types/IDataAccessObject";
 import { IHaveId } from "../types/IHaveId";
+import { error } from "../utils/error";
 
 export const useDataAccessObject = <T extends IHaveId>(
   initialDataObjects?: T[]
@@ -11,11 +12,18 @@ export const useDataAccessObject = <T extends IHaveId>(
     setDataObjects((previous) => [...previous, dataObject]);
   }, []);
 
-  const findById = useCallback(
+  const findByIdOrNull = useCallback(
     (id: string) => {
       return dataObjects.find((element) => element.id === id);
     },
     [dataObjects]
+  );
+
+  const findById = useCallback(
+    (id: string) => {
+      return findByIdOrNull(id) ?? error();
+    },
+    [findByIdOrNull]
   );
 
   const onDelete = useCallback((dataObject: T) => {
@@ -34,5 +42,5 @@ export const useDataAccessObject = <T extends IHaveId>(
     });
   }, []);
 
-  return { dataObjects, findById, onAdd, onDelete, onUpdate };
+  return { dataObjects, findById, findByIdOrNull, onAdd, onDelete, onUpdate };
 };
