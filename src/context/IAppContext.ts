@@ -1,8 +1,8 @@
 import { IBeverage } from "../model/IBeverage";
+import { IConsumption } from "../model/IConsumption";
 import { IDataAccessObject } from "../types/IDataAccessObject";
-import { IValue } from "../types/IValue";
 
 export interface IAppContext {
   beverages: IDataAccessObject<IBeverage>;
-  totalConsumption: IValue<number>;
+  consumptions: IDataAccessObject<IConsumption>;
 }

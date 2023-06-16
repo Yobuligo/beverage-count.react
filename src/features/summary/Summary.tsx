@@ -3,5 +3,7 @@ import { AppContext } from "../../context/AppContext";
 
 export const Summary: React.FC = () => {
   const context = useContext(AppContext);
-  return <>{context.totalConsumption} ml</>;
+  context.consumptions.dataObjects.forEach((consumption) => {
+  })
+  return <>ml</>;
 };

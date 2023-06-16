@@ -1,10 +1,15 @@
+import { useContext } from "react";
+import { AppContext } from "../../../context/AppContext";
 import { IVolumeCardProps } from "./IVolumeCardProps";
 
 export const VolumeCard: React.FC<IVolumeCardProps> = (props) => {
+  const context = useContext(AppContext);
+
   const onAddConsumption = () =>
-    props.onAddConsumption({
-      id: crypto.randomUUID(),
+    context.consumptions.onAdd({
       createAt: new Date(),
+      id: crypto.randomUUID(),
+      volumeId: props.volume.id,
     });
 
   return (

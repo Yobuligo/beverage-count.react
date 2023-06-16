@@ -1,6 +1,5 @@
 import { AppContext } from "../../context/AppContext";
 import { useDataAccessObject } from "../../hooks/useDataAccessObject";
-import { useValue } from "../../hooks/useValue";
 import { IAppContextProviderProps } from "./IAppContextProviderProps";
 
 export const AppContextProvider: React.FC<IAppContextProviderProps> = (
@@ -10,7 +9,7 @@ export const AppContextProvider: React.FC<IAppContextProviderProps> = (
     <AppContext.Provider
       value={{
         beverages: useDataAccessObject(),
-        totalConsumption: useValue(0),
+        consumptions: useDataAccessObject(),
       }}
     >
       {props.children}
