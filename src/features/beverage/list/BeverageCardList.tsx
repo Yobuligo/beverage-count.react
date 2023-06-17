@@ -29,7 +29,7 @@ export const BeverageCardList: React.FC = () => {
   };
 
   return (
-    <>
+    <div className={styles.beverageCardList}>
       <InputButton
         caption="+"
         clearOnClick
@@ -41,6 +41,6 @@ export const BeverageCardList: React.FC = () => {
       />
       <Summary />
       {items}
-    </>
+    </div>
   );
 };
