@@ -5,6 +5,7 @@ import { InputButton } from "../../../components/inputButton/InputButton";
 import { AppContext } from "../../../context/AppContext";
 import { useTranslation } from "../../../hooks/useTranslation";
 import { VolumeCardList } from "../../volume/list/VolumeCardList";
+import { BeverageDelete } from "../beverageDelete/BeverageDelete";
 import { IBeverageCardProps } from "./IBeverageCardProps";
 
 export const BeverageCard: React.FC<IBeverageCardProps> = (props) => {
@@ -33,8 +34,9 @@ export const BeverageCard: React.FC<IBeverageCardProps> = (props) => {
         placeholder={t.enterBeverageVolume}
         onSubmit={onAddVolume}
         submitIfEmpty={false}
-        submitOnEnter        
+        submitOnEnter
       />
+      <BeverageDelete />
     </Card>
   );
 };
