@@ -18,7 +18,7 @@ export const BeverageCardList: React.FC = () => {
     </div>
   ));
 
-  const onAdd = (title: string): void => {
+  const onAddBeverage = (title: string): void => {
     const beverage: IBeverage = {
       id: crypto.randomUUID(),
       title,
@@ -35,8 +35,9 @@ export const BeverageCardList: React.FC = () => {
         clearOnClick
         initialValue={""}
         placeholder={t.enterBeverageTitle}
-        onClick={onAdd}
-        triggerOnClickOnEnter
+        onSubmit={onAddBeverage}
+        submitIfEmpty={false}
+        submitOnEnter
       />
       <Summary />
       {items}

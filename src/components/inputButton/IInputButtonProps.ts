@@ -2,7 +2,8 @@ export interface IInputButtonProps<T> {
   caption: string;
   clearOnClick?: boolean;
   initialValue: T;
-  triggerOnClickOnEnter?: boolean
-  onClick?: (value: T) => void;
+  onSubmit?: (value: T) => void;
   placeholder?: string;
+  submitIfEmpty?: boolean;
+  submitOnEnter?: boolean;
 }

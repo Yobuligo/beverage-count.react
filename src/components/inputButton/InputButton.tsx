@@ -46,8 +46,16 @@ export function InputButton<T>(props: IInputButtonProps<T>) {
   const onChangeValue = (event: React.ChangeEvent<HTMLInputElement>) =>
     setValue(convertValue(event.target.value));
 
-  const onClick = () => {
-    props.onClick?.(value);
+  const onSubmit = () => {
+    if (
+      props.submitIfEmpty !== undefined &&
+      props.submitIfEmpty === false &&
+      !value
+    ) {
+      return;
+    }
+    
+    props.onSubmit?.(value);
     if (props.clearOnClick === true) {
       initializeValue();
     }
@@ -61,12 +69,12 @@ export function InputButton<T>(props: IInputButtonProps<T>) {
         value={value as string}
         onChange={onChangeValue}
         onKeyUp={(event: React.KeyboardEvent<HTMLInputElement>) => {
-          if (props.triggerOnClickOnEnter === true && event.key === "Enter") {
-            onClick();
+          if (props.submitOnEnter === true && event.key === "Enter") {
+            onSubmit();
           }
         }}
       />
-      <button onClick={onClick}>{props.caption}</button>
+      <button onClick={onSubmit}>{props.caption}</button>
     </>
   );
 }

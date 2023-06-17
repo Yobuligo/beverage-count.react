@@ -31,8 +31,9 @@ export const BeverageCard: React.FC<IBeverageCardProps> = (props) => {
         clearOnClick
         initialValue={0}
         placeholder={t.enterBeverageVolume}
-        onClick={onAddVolume}
-        triggerOnClickOnEnter
+        onSubmit={onAddVolume}
+        submitIfEmpty={false}
+        submitOnEnter        
       />
     </Card>
   );
