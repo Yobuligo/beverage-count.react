@@ -2,7 +2,7 @@ import { IHaveId } from "../types/IHaveId";
 import { readLocalStorage } from "../utils/localStorage/readLocalStorage";
 import { writeLocalStorage } from "../utils/localStorage/writeLocalStorage";
 
-export abstract class LocalStorage<T extends IHaveId> {
+export abstract class LocalStorageDAO<T extends IHaveId> {
   add(dataObject: T): Promise<boolean> {
     return new Promise(async (resolve) => {
       const items = await this.findAll();
