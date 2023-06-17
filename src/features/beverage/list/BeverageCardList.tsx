@@ -39,8 +39,8 @@ export const BeverageCardList: React.FC = () => {
         submitIfEmpty={false}
         submitOnEnter
       />
-      <Summary />
       {items}
+      <Summary />
     </div>
   );
 };
