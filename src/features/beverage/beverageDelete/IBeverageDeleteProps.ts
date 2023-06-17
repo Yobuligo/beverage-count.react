@@ -1,1 +1,3 @@
-export interface IBeverageDeleteProps {}
+export interface IBeverageDeleteProps {
+  onClick?: () => void;
+}

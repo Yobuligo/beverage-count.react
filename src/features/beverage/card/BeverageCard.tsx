@@ -6,6 +6,7 @@ import { AppContext } from "../../../context/AppContext";
 import { useTranslation } from "../../../hooks/useTranslation";
 import { VolumeCardList } from "../../volume/list/VolumeCardList";
 import { BeverageDelete } from "../beverageDelete/BeverageDelete";
+import styles from "./BeverageCard.module.css";
 import { IBeverageCardProps } from "./IBeverageCardProps";
 
 export const BeverageCard: React.FC<IBeverageCardProps> = (props) => {
@@ -27,16 +28,18 @@ export const BeverageCard: React.FC<IBeverageCardProps> = (props) => {
       <div>
         <VolumeCardList volumes={props.beverage.volumes} />
       </div>
-      <InputButton
-        caption="+"
-        clearOnClick
-        initialValue={0}
-        placeholder={t.enterBeverageVolume}
-        onSubmit={onAddVolume}
-        submitIfEmpty={false}
-        submitOnEnter
-      />
-      <BeverageDelete />
+      <div className={styles.beverageCardFooter}>
+        <InputButton
+          caption="+"
+          clearOnClick
+          initialValue={0}
+          placeholder={t.enterBeverageVolume}
+          onSubmit={onAddVolume}
+          submitIfEmpty={false}
+          submitOnEnter
+        />
+        <BeverageDelete />
+      </div>
     </Card>
   );
 };
