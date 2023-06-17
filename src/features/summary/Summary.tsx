@@ -19,10 +19,9 @@ export const Summary: React.FC = () => {
       const volume = volumes.find(
         (element) => element.id === consumption.volumeId
       );
-      if (!volume) {
-        throw new Error();
+      if (volume) {
+        sum = sum + volume.size;
       }
-      sum = sum + volume.size;
     });
     return sum;
   };

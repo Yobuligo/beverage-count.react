@@ -30,7 +30,7 @@ export const BeverageCard: React.FC<IBeverageCardProps> = (props) => {
       const index = props.beverage.volumes.findIndex(
         (element) => element.id === id
       );
-      if (index > 0) {
+      if (index >= 0) {
         props.beverage.volumes.splice(index, 1);
         context.beverages.onUpdate(props.beverage);
         BeverageDAO.update(props.beverage);
