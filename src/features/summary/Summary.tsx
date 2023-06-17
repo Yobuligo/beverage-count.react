@@ -1,12 +1,12 @@
-import { ReactNode, useContext, useMemo } from "react";
+import { useContext, useMemo } from "react";
 import { Card } from "../../components/card/Card";
 import { AppContext } from "../../context/AppContext";
+import { useTranslation } from "../../hooks/useTranslation";
 import { IVolume } from "../../model/IVolume";
 import { SummaryItem } from "./SummaryItem";
-import { useTranslation } from "../../hooks/useTranslation";
 
 export const Summary: React.FC = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const context = useContext(AppContext);
 
   const volumes = useMemo(() => {
@@ -28,18 +28,36 @@ export const Summary: React.FC = () => {
         consumptions.set(consumption.createAt, current + volume.size);
       }
     });
-    return consumptions;
+
+    const result: { date: string; consumption: number }[] = [];
+    consumptions.forEach((consumption, date) => {
+      result.push({ date, consumption });
+    });
+    result.sort((left, right) => {
+      if (left.date > right.date) {
+        return -1;
+      }
+      if (left.date < right.date) {
+        return 1;
+      }
+      return 0;
+    });
+    return result;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [context.consumptions.dataObjects, volumes.length]);
 
-  const items = () => {
-    let items: ReactNode[] = [];
-    consumptions.forEach((consumption, date) => {
-      items.push(
-        <SummaryItem key={date} date={date} consumption={consumption} />
-      );
-    });
-    return items;
-  };
+  const items = consumptions.map((value) => (
+    <SummaryItem
+      key={value.date}
+      date={value.date}
+      consumption={value.consumption}
+    />
+  ));
 
-  return <Card>{t.summary}{items()}</Card>;
+  return (
+    <Card>
+      {t.summary}
+      {items}
+    </Card>
+  );
 };

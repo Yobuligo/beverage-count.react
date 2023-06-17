@@ -9,7 +9,7 @@ export const VolumeCard: React.FC<IVolumeCardProps> = (props) => {
 
   const onAddConsumption = () => {
     const consumption: IConsumption = {
-      createAt: new Date().toLocaleDateString(),
+      createAt: new Date().toISOString().split("T")[0],
       id: crypto.randomUUID(),
       volumeId: props.volume.id,
     };
