@@ -28,6 +28,16 @@ export abstract class LocalStorageDAO<T extends IHaveId> {
     });
   }
 
+  update(dataObject: T): Promise<boolean> {
+    return new Promise(async (resolve) => {
+      const items = await this.findAll();
+      const index = items.findIndex((element) => element.id === dataObject.id);
+      items.splice(index, 1, dataObject);
+      writeLocalStorage(this.className, items);
+      resolve(true);
+    });
+  }
+
   private get className(): string {
     return this.constructor.name;
   }

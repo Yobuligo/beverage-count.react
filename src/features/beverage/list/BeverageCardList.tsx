@@ -1,7 +1,9 @@
 import { useContext } from "react";
+import { BeverageDAO } from "../../../api/BeverageDAO";
 import { InputButton } from "../../../components/inputButton/InputButton";
 import { AppContext } from "../../../context/AppContext";
 import { useTranslation } from "../../../hooks/useTranslation";
+import { IBeverage } from "../../../model/IBeverage";
 import { Summary } from "../../summary/Summary";
 import { BeverageCard } from "../card/BeverageCard";
 import styles from "./BeverageCardList.module.css";
@@ -16,12 +18,15 @@ export const BeverageCardList: React.FC = () => {
     </div>
   ));
 
-  const onAdd = (title: string): void =>
-    context.beverages.onAdd({
+  const onAdd = (title: string): void => {
+    const beverage: IBeverage = {
       id: crypto.randomUUID(),
       title,
       volumes: [],
-    });
+    };
+    context.beverages.onAdd(beverage);
+    BeverageDAO.add(beverage);
+  };
 
   return (
     <>
