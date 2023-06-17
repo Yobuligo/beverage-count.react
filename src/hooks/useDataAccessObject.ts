@@ -42,5 +42,13 @@ export const useDataAccessObject = <T extends IHaveId>(
     });
   }, []);
 
-  return { dataObjects, findById, findByIdOrNull, onAdd, onDelete, onUpdate };
+  return {
+    dataObjects,
+    findById,
+    findByIdOrNull,
+    onAdd,
+    onDelete,
+    onUpdate,
+    setDataObjects,
+  };
 };

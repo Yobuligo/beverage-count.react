@@ -7,4 +7,5 @@ export interface IDataAccessObject<T extends IHaveId> {
   onAdd(dataObject: T): void;
   onDelete(dataObject: T): void;
   onUpdate(dataObject: T): void;
+  setDataObjects(dataObjects: T[]): void;
 }
