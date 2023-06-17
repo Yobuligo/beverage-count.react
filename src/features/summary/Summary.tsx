@@ -1,7 +1,7 @@
 import { ReactNode, useContext, useMemo } from "react";
+import { Card } from "../../components/card/Card";
 import { AppContext } from "../../context/AppContext";
 import { IVolume } from "../../model/IVolume";
-import { formatDate } from "../../utils/formatDate";
 import { SummaryItem } from "./SummaryItem";
 
 export const Summary: React.FC = () => {
@@ -22,12 +22,8 @@ export const Summary: React.FC = () => {
         (element) => element.id === consumption.volumeId
       );
       if (volume) {
-        const current =
-          consumptions.get(formatDate(consumption.createAt.toString())) ?? 0;
-        consumptions.set(
-          formatDate(consumption.createAt.toString()),
-          current + volume.size
-        );
+        const current = consumptions.get(consumption.createAt) ?? 0;
+        consumptions.set(consumption.createAt, current + volume.size);
       }
     });
     return consumptions;
@@ -37,15 +33,11 @@ export const Summary: React.FC = () => {
     let items: ReactNode[] = [];
     consumptions.forEach((consumption, date) => {
       items.push(
-        <SummaryItem
-          key={date.toString()}
-          date={date}
-          consumption={consumption}
-        />
+        <SummaryItem key={date} date={date} consumption={consumption} />
       );
     });
     return items;
   };
 
-  return <>{items()}</>;
+  return <Card>Summary{items()}</Card>;
 };

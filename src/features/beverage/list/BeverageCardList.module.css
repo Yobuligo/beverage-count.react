@@ -1,7 +1,11 @@
-.beverageCardList{
+.beverageCardList {
   padding: 0.5rem;
 }
 
 .beverageCardListItem {
+  margin-top: 1rem;
+}
+
+.beverageCardListSummary {
   margin-top: 1rem;
 }

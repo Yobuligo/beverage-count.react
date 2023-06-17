@@ -40,7 +40,9 @@ export const BeverageCardList: React.FC = () => {
         submitOnEnter
       />
       {items}
-      <Summary />
+      <div className={styles.beverageCardListSummary}>
+        <Summary />
+      </div>
     </div>
   );
 };
