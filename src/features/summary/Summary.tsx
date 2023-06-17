@@ -3,8 +3,10 @@ import { Card } from "../../components/card/Card";
 import { AppContext } from "../../context/AppContext";
 import { IVolume } from "../../model/IVolume";
 import { SummaryItem } from "./SummaryItem";
+import { useTranslation } from "../../hooks/useTranslation";
 
 export const Summary: React.FC = () => {
+  const { t } = useTranslation()
   const context = useContext(AppContext);
 
   const volumes = useMemo(() => {
@@ -39,5 +41,5 @@ export const Summary: React.FC = () => {
     return items;
   };
 
-  return <Card>Summary{items()}</Card>;
+  return <Card>{t.summary}{items()}</Card>;
 };

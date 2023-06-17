@@ -1,5 +1,6 @@
 {
-    "beverage":"Beverage",
+    "beverage": "Beverage",
     "enterBeverageTitle": "Enter beverage title",
-    "enterBeverageVolume": "Enter beverage volume"
+    "enterBeverageVolume": "Enter beverage volume",
+    "summary": "Summary"
 }
