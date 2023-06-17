@@ -2,6 +2,7 @@ import { useId, useMemo, useRef } from "react";
 import { Icon } from "../../../components/icon/Icon";
 import { useTranslation } from "../../../hooks/useTranslation";
 import { IconType } from "../../../types/IconType";
+import styles from "./BeverageDelete.module.css";
 import { IBeverageDeleteProps } from "./IBeverageDeleteProps";
 
 export const BeverageDelete: React.FC<IBeverageDeleteProps> = (props) => {
@@ -12,13 +13,9 @@ export const BeverageDelete: React.FC<IBeverageDeleteProps> = (props) => {
   const options = useMemo(() => {
     return (
       <>
-        <option key={props.beverage.id} id={props.beverage.id}>
-          {t.beverage}
-        </option>
+        <option id={props.beverage.id}>{t.beverage}</option>
         {props.beverage.volumes.map((volume) => (
-          <option key={volume.id} id={volume.id}>
-            {volume.size}
-          </option>
+          <option id={volume.id}>{`${volume.size} ml`}</option>
         ))}
       </>
     );
@@ -30,20 +27,19 @@ export const BeverageDelete: React.FC<IBeverageDeleteProps> = (props) => {
     t.beverage,
   ]);
 
+  const onDelete = () => {
+    const option = select.current?.selectedOptions[0];
+    if (option) {
+      props.onDelete?.(option.id);
+    }
+  };
+
   return (
-    <>
+    <div className={styles.beverageDelete}>
       <select name={selectId} id={selectId} ref={select}>
         {options}
       </select>
-      <Icon
-        iconType={IconType.DELETE}
-        onClick={() => {
-          const option = select.current?.selectedOptions[0];
-          if (option) {
-            props.onDelete?.(option.id);
-          }
-        }}
-      />
-    </>
+      <Icon iconType={IconType.DELETE} onClick={onDelete} />
+    </div>
   );
 };

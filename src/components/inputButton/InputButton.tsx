@@ -62,7 +62,7 @@ export function InputButton<T>(props: IInputButtonProps<T>) {
   };
 
   return (
-    <>
+    <div>
       <input
         type={type}
         placeholder={props.placeholder}
@@ -75,6 +75,6 @@ export function InputButton<T>(props: IInputButtonProps<T>) {
         }}
       />
       <button onClick={onSubmit}>{props.caption}</button>
-    </>
+    </div>
   );
 }
