@@ -13,7 +13,7 @@ export const BeverageCardList: React.FC = () => {
   const context = useContext(AppContext);
 
   const items = context.beverages.dataObjects.map((beverage) => (
-    <div className={styles.beverageCardListItem}>
+    <div key={beverage.id} className={styles.beverageCardListItem}>
       <BeverageCard key={beverage.id} beverage={beverage} />
     </div>
   ));

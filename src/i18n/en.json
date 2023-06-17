@@ -1,4 +1,5 @@
 {
+    "beverage":"Beverage",
     "enterBeverageTitle": "Enter beverage title",
     "enterBeverageVolume": "Enter beverage volume"
 }

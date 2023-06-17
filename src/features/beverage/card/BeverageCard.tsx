@@ -22,6 +22,22 @@ export const BeverageCard: React.FC<IBeverageCardProps> = (props) => {
     BeverageDAO.update(props.beverage);
   };
 
+  const onDelete = (id: string) => {
+    if (id === props.beverage.id) {
+      context.beverages.onDelete(props.beverage);
+      BeverageDAO.delete(props.beverage);
+    } else {
+      const index = props.beverage.volumes.findIndex(
+        (element) => element.id === id
+      );
+      if (index > 0) {
+        props.beverage.volumes.splice(index, 1);
+        context.beverages.onUpdate(props.beverage);
+        BeverageDAO.update(props.beverage);
+      }
+    }
+  };
+
   return (
     <Card>
       <div>{props.beverage.title}</div>
@@ -38,7 +54,7 @@ export const BeverageCard: React.FC<IBeverageCardProps> = (props) => {
           submitIfEmpty={false}
           submitOnEnter
         />
-        <BeverageDelete />
+        <BeverageDelete beverage={props.beverage} onDelete={onDelete} />
       </div>
     </Card>
   );

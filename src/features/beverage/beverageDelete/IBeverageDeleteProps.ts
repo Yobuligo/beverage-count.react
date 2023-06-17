@@ -1,3 +1,6 @@
+import { IBeverage } from "../../../model/IBeverage";
+
 export interface IBeverageDeleteProps {
-  onClick?: () => void;
+  beverage: IBeverage;
+  onDelete?: (id: string) => void;
 }
