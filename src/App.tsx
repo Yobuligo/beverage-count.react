@@ -1,11 +1,11 @@
 import "./App.css";
 import { AppContextProvider } from "./features/appContextProvider/AppContextProvider";
-import { BeverageCardList } from "./features/beverage/list/BeverageCardList";
+import { BeveragePage } from "./pages/BeveragePage";
 
 function App() {
   return (
     <AppContextProvider>
-      <BeverageCardList />
+      <BeveragePage />
     </AppContextProvider>
   );
 }
