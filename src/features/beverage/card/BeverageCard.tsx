@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { BeverageDAO } from "../../../api/BeverageDAO";
 import { Card } from "../../../components/card/Card";
 import { InputButton } from "../../../components/inputButton/InputButton";
 import { AppContext } from "../../../context/AppContext";
@@ -16,6 +17,7 @@ export const BeverageCard: React.FC<IBeverageCardProps> = (props) => {
       size,
     });
     context.beverages.onUpdate(props.beverage);
+    BeverageDAO.update(props.beverage);
   };
 
   return (
