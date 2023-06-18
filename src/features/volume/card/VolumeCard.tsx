@@ -3,6 +3,7 @@ import { ConsumptionDAO } from "../../../api/ConsumptionDAO";
 import { AppContext } from "../../../context/AppContext";
 import { useTranslation } from "../../../hooks/useTranslation";
 import { IVolumeCardProps } from "./IVolumeCardProps";
+import styles from "./VolumeCard.module.css";
 
 export const VolumeCard: React.FC<IVolumeCardProps> = (props) => {
   const context = useContext(AppContext);
@@ -18,10 +19,8 @@ export const VolumeCard: React.FC<IVolumeCardProps> = (props) => {
   };
 
   return (
-    <>
-      <button onClick={onAddConsumption}>
-        {props.volume.size} {`${t.beverageUnitMl}`}
-      </button>
-    </>
+    <button className={styles.volumeCardButton} onClick={onAddConsumption}>
+      {props.volume.size} {`${t.beverageUnitMl}`}
+    </button>
   );
 };

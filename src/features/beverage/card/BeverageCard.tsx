@@ -40,7 +40,7 @@ export const BeverageCard: React.FC<IBeverageCardProps> = (props) => {
 
   return (
     <Card>
-      <div>{props.beverage.title}</div>
+      <h3 className={styles.beverageCardTitle}>{props.beverage.title}</h3>
       <div>
         <VolumeCardList volumes={props.beverage.volumes} />
       </div>
@@ -53,6 +53,7 @@ export const BeverageCard: React.FC<IBeverageCardProps> = (props) => {
           onSubmit={onAddVolume}
           submitIfEmpty={false}
           submitOnEnter
+          width={"5rem"}
         />
         <BeverageDelete beverage={props.beverage} onDelete={onDelete} />
       </div>

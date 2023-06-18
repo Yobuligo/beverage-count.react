@@ -1,5 +1,11 @@
+.beverageCardTitle {
+  margin: 0;
+  margin-bottom: 0.5rem;
+}
+
 .beverageCardFooter {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding-top: 0.5rem;
 }

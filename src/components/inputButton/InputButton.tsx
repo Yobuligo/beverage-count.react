@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { IInputButtonProps } from "./IInputButtonProps";
+import styles from "./InputButton.module.css";
 
 export function InputButton<T>(props: IInputButtonProps<T>) {
   const [value, setValue] = useState(props.initialValue);
@@ -54,16 +55,21 @@ export function InputButton<T>(props: IInputButtonProps<T>) {
     ) {
       return;
     }
-    
+
     props.onSubmit?.(value);
     if (props.clearOnClick === true) {
       initializeValue();
     }
   };
 
+  const style = {
+    "--width": `${props.width ?? "10rem"}`,
+  } as React.CSSProperties;
+
   return (
-    <div>
-      <input
+    <div className={`${styles.inputButton} ${props.className}`}>
+      <input        
+        style={style}
         type={type}
         placeholder={props.placeholder}
         value={value as string}
