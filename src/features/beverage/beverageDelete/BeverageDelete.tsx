@@ -13,9 +13,11 @@ export const BeverageDelete: React.FC<IBeverageDeleteProps> = (props) => {
   const options = useMemo(() => {
     return (
       <>
-        <option id={props.beverage.id}>{t.beverage}</option>
+        <option key={props.beverage.id} id={props.beverage.id}>
+          {t.beverage}
+        </option>
         {props.beverage.volumes.map((volume) => (
-          <option id={volume.id}>{`${volume.size} ml`}</option>
+          <option key={volume.id} id={volume.id}>{`${volume.size} ml`}</option>
         ))}
       </>
     );

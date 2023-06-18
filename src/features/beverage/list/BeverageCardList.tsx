@@ -41,7 +41,7 @@ export const BeverageCardList: React.FC = () => {
           submitIfEmpty={false}
           submitOnEnter
         />
-        <UndoButton onUndo={()=>{}} />
+        <UndoButton onUndo={() => {console.log("Undo")}} />
       </div>
       {items}
       <div className={styles.beverageCardListSummary}>
