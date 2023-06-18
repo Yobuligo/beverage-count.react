@@ -1,5 +1,6 @@
 {
     "beverage": "Getränk",
+    "beverageUnitMl": "ml",
     "enterBeverageTitle": "Getränkbezeichnung eingeben",
     "enterBeverageVolume": "Getränkegröße eingeben",
     "summary": "Übersicht",

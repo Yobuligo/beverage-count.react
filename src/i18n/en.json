@@ -1,7 +1,9 @@
 {
     "beverage": "Beverage",
+    "beverageUnitMl":"ml",
     "enterBeverageTitle": "Enter beverage title",
     "enterBeverageVolume": "Enter beverage volume",
     "summary": "Summary",
     "undoing": "... undoing"
+
 }
