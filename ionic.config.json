@@ -1,0 +1,7 @@
+{
+    "name": "Beverage Count",
+    "integrations": {
+        "capacitor": {}
+    },
+    "type": "react"
+}
