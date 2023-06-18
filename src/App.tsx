@@ -1,12 +1,13 @@
-import "./App.css";
 import { AppContextProvider } from "./features/appContextProvider/AppContextProvider";
 import { BeveragePage } from "./pages/BeveragePage";
 
 function App() {
   return (
-    <AppContextProvider>
-      <BeveragePage />
-    </AppContextProvider>
+    <>
+      <AppContextProvider>
+        <BeveragePage />
+      </AppContextProvider>
+    </>
   );
 }
 

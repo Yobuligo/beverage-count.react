@@ -1,0 +1,8 @@
+.volumeCardList{
+    display: flex;
+    flex-direction: row;
+}
+
+.volumeCardListItem{
+    margin-right: 0.5rem;
+}

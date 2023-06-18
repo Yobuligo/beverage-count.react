@@ -4,7 +4,6 @@ import { useTranslation } from "../../../hooks/useTranslation";
 import { IconType } from "../../../types/IconType";
 import styles from "./BeverageDelete.module.css";
 import { IBeverageDeleteProps } from "./IBeverageDeleteProps";
-import { Card } from "../../../components/card/Card";
 
 export const BeverageDelete: React.FC<IBeverageDeleteProps> = (props) => {
   const selectId = useId();

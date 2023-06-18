@@ -67,7 +67,7 @@ export const BeverageCard: React.FC<IBeverageCardProps> = (props) => {
   };
 
   return (
-    <Card>
+    <Card className={styles.beverageCard}>
       <h3 className={styles.beverageCardTitle}>{props.beverage.title}</h3>
       <div>
         <VolumeCardList volumes={props.beverage.volumes} />
