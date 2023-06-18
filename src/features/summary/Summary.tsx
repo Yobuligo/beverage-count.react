@@ -4,6 +4,7 @@ import { AppContext } from "../../context/AppContext";
 import { useTranslation } from "../../hooks/useTranslation";
 import { IVolume } from "../../model/IVolume";
 import { SummaryItem } from "./SummaryItem";
+import styles from "./Summary.module.css";
 
 export const Summary: React.FC = () => {
   const { t } = useTranslation();
@@ -43,7 +44,7 @@ export const Summary: React.FC = () => {
       return 0;
     });
     return result;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [context.consumptions.dataObjects, volumes.length]);
 
   const items = consumptions.map((value) => (
@@ -55,8 +56,8 @@ export const Summary: React.FC = () => {
   ));
 
   return (
-    <Card>
-      {t.summary}
+    <Card className={styles.summary}>
+      <h3>{t.summary}</h3>
       {items}
     </Card>
   );
