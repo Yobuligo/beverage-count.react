@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import { BeverageDAO } from "../../../api/BeverageDAO";
+import { ConsumptionDAO } from "../../../api/ConsumptionDAO";
 import { Card } from "../../../components/card/Card";
 import { InputButton } from "../../../components/inputButton/InputButton";
 import { AppContext } from "../../../context/AppContext";
 import { useTranslation } from "../../../hooks/useTranslation";
+import { IVolume } from "../../../model/IVolume";
 import { VolumeCardList } from "../../volume/list/VolumeCardList";
 import { BeverageDelete } from "../beverageDelete/BeverageDelete";
 import styles from "./BeverageCard.module.css";
@@ -14,12 +16,38 @@ export const BeverageCard: React.FC<IBeverageCardProps> = (props) => {
   const context = useContext(AppContext);
 
   const onAddVolume = (size: number): void => {
-    props.beverage.volumes.push({
-      id: crypto.randomUUID(),
-      size,
+    let volume = findVolumeBySize(size);
+    if (!volume) {
+      volume = {
+        id: crypto.randomUUID(),
+        size,
+      };
+      props.beverage.volumes.push(volume);
+      context.beverages.onUpdate(props.beverage);
+      BeverageDAO.update(props.beverage);
+    }
+
+    const consumption = ConsumptionDAO.create({
+      createAt: new Date().toISOString().split("T")[0],
+      volumeId: volume.id,
     });
-    context.beverages.onUpdate(props.beverage);
-    BeverageDAO.update(props.beverage);
+    context.consumptions.onAdd(consumption);
+    ConsumptionDAO.add(consumption);
+  };
+
+  const findVolumeBySize = (size: number): IVolume | undefined => {
+    for (let i = 0; i < context.beverages.dataObjects.length; i++) {
+      for (
+        let j = 0;
+        j < context.beverages.dataObjects[i].volumes.length;
+        j++
+      ) {
+        if (context.beverages.dataObjects[i].volumes[j].size === size) {
+          return context.beverages.dataObjects[i].volumes[j];
+        }
+      }
+    }
+    return undefined;
   };
 
   const onDelete = (id: string) => {
