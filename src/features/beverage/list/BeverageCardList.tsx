@@ -3,7 +3,6 @@ import { BeverageDAO } from "../../../api/BeverageDAO";
 import { InputButton } from "../../../components/inputButton/InputButton";
 import { AppContext } from "../../../context/AppContext";
 import { useTranslation } from "../../../hooks/useTranslation";
-import { IBeverage } from "../../../model/IBeverage";
 import { Summary } from "../../summary/Summary";
 import { UndoButton } from "../../undo/UndoButton";
 import { BeverageCard } from "../card/BeverageCard";
@@ -20,11 +19,7 @@ export const BeverageCardList: React.FC = () => {
   ));
 
   const onAddBeverage = (title: string): void => {
-    const beverage: IBeverage = {
-      id: crypto.randomUUID(),
-      title,
-      volumes: [],
-    };
+    const beverage = BeverageDAO.create({ title, volumes: [] });
     context.beverages.onAdd(beverage);
     BeverageDAO.add(beverage);
   };
@@ -41,7 +36,11 @@ export const BeverageCardList: React.FC = () => {
           submitIfEmpty={false}
           submitOnEnter
         />
-        <UndoButton onUndo={() => {console.log("Undo")}} />
+        <UndoButton
+          onUndo={() => {
+            console.log("Undo");
+          }}
+        />
       </div>
       {items}
       <div className={styles.beverageCardListSummary}>

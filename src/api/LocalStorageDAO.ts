@@ -12,6 +12,10 @@ export abstract class LocalStorageDAO<T extends IHaveId> {
     });
   }
 
+  create(dataObject: Omit<T, "id">): T {
+    return { ...dataObject, id: crypto.randomUUID() } as T;
+  }
+
   findAll(): Promise<T[]> {
     return new Promise((resolve) => {
       resolve(readLocalStorage<T[]>(this.className) ?? []);
