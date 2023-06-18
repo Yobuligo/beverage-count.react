@@ -2,5 +2,6 @@
     "beverage": "Beverage",
     "enterBeverageTitle": "Enter beverage title",
     "enterBeverageVolume": "Enter beverage volume",
-    "summary": "Summary"
+    "summary": "Summary",
+    "undoing": "... undoing"
 }

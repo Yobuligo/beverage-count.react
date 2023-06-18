@@ -6,6 +6,10 @@ import { ConsumptionDAO } from "./ConsumptionDAO";
 import { LocalStorageDAO } from "./LocalStorageDAO";
 
 class SnapshotDefaultDAO extends LocalStorageDAO<ISnapshot> {
+  constructor(private daos: LocalStorageDAO<any>[]) {
+    super(undefined);
+  }
+
   createSnapshot(): Promise<boolean> {
     return new Promise(async (resolve) => {
       const data = await Promise.all([
@@ -61,4 +65,4 @@ class SnapshotDefaultDAO extends LocalStorageDAO<ISnapshot> {
     });
   }
 }
-export const SnapshotDAO = new SnapshotDefaultDAO(undefined);
+export const SnapshotDAO = new SnapshotDefaultDAO([]);

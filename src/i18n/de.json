@@ -2,5 +2,6 @@
     "beverage": "Getränk",
     "enterBeverageTitle": "Getränkbezeichnung eingeben",
     "enterBeverageVolume": "Getränkegröße eingeben",
-    "summary": "Übersicht"
+    "summary": "Übersicht",
+    "undoing": "... wird rückgängig gemacht"
 }
