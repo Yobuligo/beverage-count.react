@@ -7,9 +7,6 @@ export const useRestoreSnapshot = () => {
 
   const restoreSnapshot = async () => {
     const data = await SnapshotDAO.restoreSnapshot();
-    if (data[0].length === 0) {
-      return;
-    }
     context.beverages.setDataObjects(data[0]);
     context.consumptions.setDataObjects(data[1]);
   };

@@ -27,11 +27,11 @@ class SnapshotDefaultDAO extends LocalStorageDAO<ISnapshot> {
     return new Promise(async (resolve) => {
       const snapshots = await SnapshotDAO.findAll();
       snapshots.sort((left, right) => {
-        if (left < right) {
+        if (left.createdAt > right.createdAt) {
           return -1;
         }
 
-        if (left > right) {
+        if (left.createdAt < right.createdAt) {
           return 1;
         }
 
@@ -42,24 +42,22 @@ class SnapshotDefaultDAO extends LocalStorageDAO<ISnapshot> {
   }
 
   restoreSnapshot(): Promise<[IBeverage[], IConsumption[]]> {
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve) => {
       const snapshots = await this.findAllSorted();
-      if (snapshots.length === 0) {
-        reject("No snapshots found");
-        return;
-      }
 
       // restore snapshots, beverages and consumptions by deleting last
-      const lastSnapshot = snapshots[0];
+      const lastSnapshot = snapshots[1] ?? [];
       snapshots.splice(0, 1);
+      const beverages = lastSnapshot.beverages ?? [];
+      const consumptions = lastSnapshot.consumptions ?? [];
       await Promise.all([
         this.restore(snapshots),
-        BeverageDAO.restore(lastSnapshot.beverages),
-        ConsumptionDAO.restore(lastSnapshot.consumptions),
+        BeverageDAO.restore(beverages),
+        ConsumptionDAO.restore(consumptions),
       ]);
 
       // return data of last snapshot
-      resolve([lastSnapshot.beverages, lastSnapshot.consumptions]);
+      resolve([beverages, consumptions]);
     });
   }
 }
