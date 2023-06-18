@@ -1,3 +1,5 @@
+import { IBeverage } from "../model/IBeverage";
+import { IConsumption } from "../model/IConsumption";
 import { ISnapshot } from "../model/ISnapshot";
 import { BeverageDAO } from "./BeverageDAO";
 import { ConsumptionDAO } from "./ConsumptionDAO";
@@ -18,6 +20,46 @@ class SnapshotDefaultDAO extends LocalStorageDAO<ISnapshot> {
       });
       const result = await SnapshotDAO.add(snapshot);
       resolve(result);
+    });
+  }
+
+  findAllSorted(): Promise<ISnapshot[]> {
+    return new Promise(async (resolve) => {
+      const snapshots = await SnapshotDAO.findAll();
+      snapshots.sort((left, right) => {
+        if (left < right) {
+          return -1;
+        }
+
+        if (left > right) {
+          return 1;
+        }
+
+        return 0;
+      });
+      resolve(snapshots);
+    });
+  }
+
+  restoreSnapshot(): Promise<[IBeverage[], IConsumption[]]> {
+    return new Promise(async (resolve, reject) => {
+      const snapshots = await this.findAllSorted();
+      if (snapshots.length === 0) {
+        reject("No snapshots found");
+        return;
+      }
+
+      // restore snapshots, beverages and consumptions by deleting last
+      const lastSnapshot = snapshots[0];
+      snapshots.splice(0, 1);
+      await Promise.all([
+        this.restore(snapshots),
+        BeverageDAO.restore(lastSnapshot.beverages),
+        ConsumptionDAO.restore(lastSnapshot.consumptions),
+      ]);
+
+      // return data of last snapshot
+      resolve([lastSnapshot.beverages, lastSnapshot.consumptions]);
     });
   }
 }

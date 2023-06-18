@@ -36,6 +36,13 @@ export abstract class LocalStorageDAO<T extends IHaveId> {
     });
   }
 
+  restore(dataObjects: T[]): Promise<boolean> {
+    return new Promise((resolve) => {
+      writeLocalStorage(this.className, dataObjects);
+      resolve(true);
+    });
+  }
+
   update(dataObject: T): Promise<boolean> {
     return new Promise(async (resolve) => {
       const items = await this.findAll();
@@ -47,7 +54,7 @@ export abstract class LocalStorageDAO<T extends IHaveId> {
     });
   }
 
-  private get className(): string {
+  protected get className(): string {
     return this.constructor.name;
   }
 }
