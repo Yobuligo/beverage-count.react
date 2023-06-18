@@ -6,6 +6,7 @@ export const UndoButton: React.FC<IUndoButtonProps> = (props) => {
   return (
     <>
       <Icon iconType={IconType.UNDO} onClick={props.onUndo} />
+      {props.showLoadingSpinner && <>... undo</>}
     </>
   );
 };

@@ -1,7 +1,8 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { BeverageDAO } from "../../../api/BeverageDAO";
 import { InputButton } from "../../../components/inputButton/InputButton";
 import { AppContext } from "../../../context/AppContext";
+import { useRestoreSnapshot } from "../../../hooks/useRestoreSnapshot";
 import { useTranslation } from "../../../hooks/useTranslation";
 import { Summary } from "../../summary/Summary";
 import { UndoButton } from "../../undo/UndoButton";
@@ -9,8 +10,10 @@ import { BeverageCard } from "../card/BeverageCard";
 import styles from "./BeverageCardList.module.css";
 
 export const BeverageCardList: React.FC = () => {
+  const [isRestoring, setIsRestoring] = useState(false);
   const { t } = useTranslation();
   const context = useContext(AppContext);
+  const restoreSnapshot = useRestoreSnapshot();
 
   const items = context.beverages.dataObjects.map((beverage) => (
     <div key={beverage.id} className={styles.beverageCardListItem}>
@@ -37,9 +40,12 @@ export const BeverageCardList: React.FC = () => {
           submitOnEnter
         />
         <UndoButton
-          onUndo={() => {
-            console.log("Undo");
+          onUndo={async () => {
+            setIsRestoring(true);
+            await restoreSnapshot();
+            setIsRestoring(false);
           }}
+          showLoadingSpinner={isRestoring}
         />
       </div>
       {items}
