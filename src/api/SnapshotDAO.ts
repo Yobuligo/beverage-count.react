@@ -21,4 +21,4 @@ class SnapshotDefaultDAO extends LocalStorageDAO<ISnapshot> {
     });
   }
 }
-export const SnapshotDAO = new SnapshotDefaultDAO(false);
+export const SnapshotDAO = new SnapshotDefaultDAO(undefined);
