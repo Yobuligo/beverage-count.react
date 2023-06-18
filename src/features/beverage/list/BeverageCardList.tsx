@@ -5,6 +5,7 @@ import { AppContext } from "../../../context/AppContext";
 import { useTranslation } from "../../../hooks/useTranslation";
 import { IBeverage } from "../../../model/IBeverage";
 import { Summary } from "../../summary/Summary";
+import { UndoButton } from "../../undo/UndoButton";
 import { BeverageCard } from "../card/BeverageCard";
 import styles from "./BeverageCardList.module.css";
 
@@ -30,15 +31,18 @@ export const BeverageCardList: React.FC = () => {
 
   return (
     <div className={styles.beverageCardList}>
-      <InputButton
-        caption="+"
-        clearOnClick
-        initialValue={""}
-        placeholder={t.enterBeverageTitle}
-        onSubmit={onAddBeverage}
-        submitIfEmpty={false}
-        submitOnEnter
-      />
+      <div className={styles.beverageCardListHeader}>
+        <InputButton
+          caption="+"
+          clearOnClick
+          initialValue={""}
+          placeholder={t.enterBeverageTitle}
+          onSubmit={onAddBeverage}
+          submitIfEmpty={false}
+          submitOnEnter
+        />
+        <UndoButton onUndo={()=>{}} />
+      </div>
       {items}
       <div className={styles.beverageCardListSummary}>
         <Summary />

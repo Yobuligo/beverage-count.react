@@ -2,6 +2,11 @@
   padding: 0.5rem;
 }
 
+.beverageCardListHeader {
+  display: flex;
+  flex-direction: row;
+}
+
 .beverageCardListItem {
   margin-top: 1rem;
 }
