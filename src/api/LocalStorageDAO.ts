@@ -1,13 +1,17 @@
 import { IHaveId } from "../types/IHaveId";
 import { readLocalStorage } from "../utils/localStorage/readLocalStorage";
 import { writeLocalStorage } from "../utils/localStorage/writeLocalStorage";
+import { SnapshotDAO } from "./SnapshotDAO";
 
 export abstract class LocalStorageDAO<T extends IHaveId> {
+  constructor(private needsSnapshot: boolean) {}
+
   add(dataObject: T): Promise<boolean> {
     return new Promise(async (resolve) => {
       const items = await this.findAll();
       items.push(dataObject);
       writeLocalStorage(this.className, items);
+      await this.createSnapshot();
       resolve(true);
     });
   }
@@ -28,6 +32,7 @@ export abstract class LocalStorageDAO<T extends IHaveId> {
       const index = items.findIndex((element) => element.id === dataObject.id);
       items.splice(index, 1);
       writeLocalStorage(this.className, items);
+      await this.createSnapshot();
       resolve(true);
     });
   }
@@ -38,6 +43,16 @@ export abstract class LocalStorageDAO<T extends IHaveId> {
       const index = items.findIndex((element) => element.id === dataObject.id);
       items.splice(index, 1, dataObject);
       writeLocalStorage(this.className, items);
+      await this.createSnapshot();
+      resolve(true);
+    });
+  }
+
+  private createSnapshot(): Promise<boolean> {
+    return new Promise(async (resolve) => {
+      if (this.needsSnapshot) {
+        resolve(await SnapshotDAO.createSnapshot());
+      }
       resolve(true);
     });
   }
