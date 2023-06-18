@@ -1,3 +1,4 @@
+import './colors.css'
 import { AppContextProvider } from "./features/appContextProvider/AppContextProvider";
 import { BeveragePage } from "./pages/BeveragePage";
 

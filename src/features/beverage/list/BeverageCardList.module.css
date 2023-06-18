@@ -2,6 +2,11 @@
   padding: 0.5rem;
 }
 
+.beverageCardListInputButton input {
+  background-color: var(--cardColor);
+  border: none;
+}
+
 .beverageCardListHeader {
   display: flex;
   flex-direction: row;
@@ -14,4 +19,8 @@
 
 .beverageCardListSummary {
   margin-top: 1rem;
+}
+
+.beverageCardListUndo {
+  color: var(--cardColor);
 }

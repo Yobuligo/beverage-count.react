@@ -75,6 +75,7 @@ export const BeverageCard: React.FC<IBeverageCardProps> = (props) => {
       <div className={styles.beverageCardFooter}>
         <InputButton
           caption="+"
+          className={styles.beverageCardInputButton}
           clearOnClick
           initialValue={0}
           placeholder={t.enterBeverageVolume}

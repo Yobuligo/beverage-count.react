@@ -1,5 +1,5 @@
 .volumeCardButton {
   height: 2rem;
-  background-color: #6d933c;
+  background-color: var(--buttonColor);
   border: 0;
 }

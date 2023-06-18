@@ -1,5 +1,9 @@
-.beverageCard{
-  background-color: #f4edd4;
+.beverageCard {
+  background-color: var(--cardColor);
+}
+
+.beverageCardInputButton input {
+  border: none;
 }
 
 .beverageCardTitle {

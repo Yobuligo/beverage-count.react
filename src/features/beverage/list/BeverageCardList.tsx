@@ -32,6 +32,7 @@ export const BeverageCardList: React.FC = () => {
       <div className={styles.beverageCardListHeader}>
         <InputButton
           caption="+"
+          className={styles.beverageCardListInputButton}
           clearOnClick
           initialValue={""}
           placeholder={t.enterBeverageTitle}
@@ -40,6 +41,7 @@ export const BeverageCardList: React.FC = () => {
           submitOnEnter
         />
         <UndoButton
+          className={styles.beverageCardListUndo}
           onUndo={async () => {
             setIsRestoring(true);
             await restoreSnapshot();
