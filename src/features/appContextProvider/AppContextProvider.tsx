@@ -10,6 +10,7 @@ export const AppContextProvider: React.FC<IAppContextProviderProps> = (
       value={{
         beverages: useDataAccessObject(),
         consumptions: useDataAccessObject(),
+        volumes: useDataAccessObject(),
       }}
     >
       {props.children}

@@ -22,7 +22,7 @@ export const BeverageCardList: React.FC = () => {
   ));
 
   const onAddBeverage = (title: string): void => {
-    const beverage = BeverageDAO.create({ title, volumes: [] });
+    const beverage = BeverageDAO.create({ title });
     context.beverages.onAdd(beverage);
     BeverageDAO.add(beverage);
   };

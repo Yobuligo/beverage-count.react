@@ -1,11 +1,13 @@
 import { useContext } from "react";
 import { BeverageDAO } from "../../../api/BeverageDAO";
 import { ConsumptionDAO } from "../../../api/ConsumptionDAO";
+import { VolumeDAO } from "../../../api/VolumeDAO";
 import { Card } from "../../../components/card/Card";
 import { InputButton } from "../../../components/inputButton/InputButton";
 import { AppContext } from "../../../context/AppContext";
 import { useTranslation } from "../../../hooks/useTranslation";
 import { IVolume } from "../../../model/IVolume";
+import { Id } from "../../../types/EntityTypes";
 import { VolumeCardList } from "../../volume/list/VolumeCardList";
 import { BeverageDelete } from "../beverageDelete/BeverageDelete";
 import styles from "./BeverageCard.module.css";
@@ -15,16 +17,22 @@ export const BeverageCard: React.FC<IBeverageCardProps> = (props) => {
   const { t } = useTranslation();
   const context = useContext(AppContext);
 
+  const findVolumeBySize = (size: number): IVolume | undefined => {
+    return context.volumes.dataObjects.find(
+      (volume) =>
+        volume.beverageId === props.beverage.id && volume.size === size
+    );
+  };
+
   const onAddVolume = (size: number): void => {
     let volume = findVolumeBySize(size);
     if (!volume) {
-      volume = {
-        id: crypto.randomUUID(),
+      volume = VolumeDAO.create({
+        beverageId: props.beverage.id,
         size,
-      };
-      props.beverage.volumes.push(volume);
-      context.beverages.onUpdate(props.beverage);
-      BeverageDAO.update(props.beverage);
+      });
+      context.volumes.onAdd(volume);
+      VolumeDAO.add(volume);
     }
 
     const consumption = ConsumptionDAO.create({
@@ -35,42 +43,31 @@ export const BeverageCard: React.FC<IBeverageCardProps> = (props) => {
     ConsumptionDAO.add(consumption);
   };
 
-  const findVolumeBySize = (size: number): IVolume | undefined => {
-    for (let i = 0; i < context.beverages.dataObjects.length; i++) {
-      for (
-        let j = 0;
-        j < context.beverages.dataObjects[i].volumes.length;
-        j++
-      ) {
-        if (context.beverages.dataObjects[i].volumes[j].size === size) {
-          return context.beverages.dataObjects[i].volumes[j];
-        }
-      }
-    }
-    return undefined;
-  };
-
-  const onDelete = (id: string) => {
+  const onDelete = (id: Id) => {
     if (id === props.beverage.id) {
+      // Delete beverages incl. volumes?
       context.beverages.onDelete(props.beverage);
       BeverageDAO.delete(props.beverage);
+      VolumeDAO.deleteByBeverageId(props.beverage.id);
     } else {
-      const index = props.beverage.volumes.findIndex(
-        (element) => element.id === id
-      );
-      if (index >= 0) {
-        props.beverage.volumes.splice(index, 1);
-        context.beverages.onUpdate(props.beverage);
-        BeverageDAO.update(props.beverage);
+      // Delete volume of beverage
+      const volume = context.volumes.findByIdOrNull(id);
+      if (volume) {
+        context.volumes.onDelete(volume);
+        VolumeDAO.delete(volume);
       }
     }
   };
+
+  const volumes = context.volumes.findByFilter(
+    (volume) => volume.beverageId === props.beverage.id
+  );
 
   return (
     <Card className={styles.beverageCard}>
       <h3 className={styles.beverageCardTitle}>{props.beverage.title}</h3>
       <div>
-        <VolumeCardList volumes={props.beverage.volumes} />
+        <VolumeCardList volumes={volumes} />
       </div>
       <div className={styles.beverageCardFooter}>
         <InputButton

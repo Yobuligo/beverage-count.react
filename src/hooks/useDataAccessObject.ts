@@ -12,6 +12,10 @@ export const useDataAccessObject = <T extends IHaveId>(
     setDataObjects((previous) => [...previous, dataObject]);
   }, []);
 
+  const findByFilter = (predicate: (dataObject: T) => boolean): T[] => {
+    return dataObjects.filter((dataObject) => predicate(dataObject));
+  };
+
   const findByIdOrNull = useCallback(
     (id: string) => {
       return dataObjects.find((element) => element.id === id);
@@ -44,6 +48,7 @@ export const useDataAccessObject = <T extends IHaveId>(
 
   return {
     dataObjects,
+    findByFilter,
     findById,
     findByIdOrNull,
     onAdd,

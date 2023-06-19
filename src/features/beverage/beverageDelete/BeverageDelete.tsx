@@ -1,5 +1,6 @@
-import { useId, useMemo, useRef } from "react";
+import { useContext, useId, useMemo, useRef } from "react";
 import { Icon } from "../../../components/icon/Icon";
+import { AppContext } from "../../../context/AppContext";
 import { useTranslation } from "../../../hooks/useTranslation";
 import { IconType } from "../../../types/IconType";
 import styles from "./BeverageDelete.module.css";
@@ -9,6 +10,7 @@ export const BeverageDelete: React.FC<IBeverageDeleteProps> = (props) => {
   const selectId = useId();
   const select = useRef<HTMLSelectElement>(null);
   const { t } = useTranslation();
+  const context = useContext(AppContext);
 
   const options = useMemo(() => {
     return (
@@ -16,20 +18,22 @@ export const BeverageDelete: React.FC<IBeverageDeleteProps> = (props) => {
         <option key={props.beverage.id} id={props.beverage.id}>
           {props.beverage.title}
         </option>
-        {props.beverage.volumes.map((volume) => (
-          <option
-            key={volume.id}
-            id={volume.id}
-          >{`${volume.size} ${t.beverageUnitMl}`}</option>
-        ))}
+        {context.volumes
+          .findByFilter((volume) => volume.beverageId === props.beverage.id)
+          .map((volume) => (
+            <option
+              key={volume.id}
+              id={volume.id}
+            >{`${volume.size} ${t.beverageUnitMl}`}</option>
+          ))}
       </>
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     props.beverage.id,
-    props.beverage.volumes.length,
-    props.beverage.volumes,
-    t.beverage,
+    props.beverage.title,
+    context.volumes.dataObjects.length,
+    t.beverageUnitMl,
   ]);
 
   const onDelete = () => {

@@ -19,6 +19,27 @@ export abstract class LocalStorageDAO<T extends IHaveId> {
     return { ...dataObject, id: crypto.randomUUID() } as T;
   }
 
+  delete(dataObject: T): Promise<boolean> {
+    return new Promise(async (resolve) => {
+      const items = await this.findAll();
+      const index = items.findIndex((element) => element.id === dataObject.id);
+      items.splice(index, 1);
+      writeLocalStorage(this.className, items);
+      this.snapshotter?.();
+      resolve(true);
+    });
+  }
+
+  deleteByFilter(predicate: (dataObject: T) => boolean): Promise<boolean> {
+    return new Promise(async (resolve) => {
+      const data = await this.findByFilter(predicate);
+      if (data.length > 0) {
+        this.restore(data);
+      }
+      resolve(true);
+    });
+  }
+
   findAll(): Promise<T[]> {
     return new Promise((resolve) => {
       resolve(readLocalStorage<T[]>(this.className) ?? []);
@@ -29,17 +50,6 @@ export abstract class LocalStorageDAO<T extends IHaveId> {
     return new Promise(async (resolve) => {
       const data = await this.findAll();
       resolve(data.filter((dataObject) => predicate(dataObject)));
-    });
-  }
-
-  delete(dataObject: T): Promise<boolean> {
-    return new Promise(async (resolve) => {
-      const items = await this.findAll();
-      const index = items.findIndex((element) => element.id === dataObject.id);
-      items.splice(index, 1);
-      writeLocalStorage(this.className, items);
-      this.snapshotter?.();
-      resolve(true);
     });
   }
 

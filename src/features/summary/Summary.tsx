@@ -2,26 +2,17 @@ import { useContext, useMemo } from "react";
 import { Card } from "../../components/card/Card";
 import { AppContext } from "../../context/AppContext";
 import { useTranslation } from "../../hooks/useTranslation";
-import { IVolume } from "../../model/IVolume";
-import { SummaryItem } from "./SummaryItem";
 import styles from "./Summary.module.css";
+import { SummaryItem } from "./SummaryItem";
 
 export const Summary: React.FC = () => {
   const { t } = useTranslation();
   const context = useContext(AppContext);
 
-  const volumes = useMemo(() => {
-    const volumes: IVolume[] = [];
-    context.beverages.dataObjects.map((beverage) =>
-      volumes.push(...beverage.volumes)
-    );
-    return volumes;
-  }, [context.beverages.dataObjects]);
-
   const consumptions = useMemo(() => {
     const consumptions = new Map<string, number>();
     context.consumptions.dataObjects.forEach((consumption) => {
-      const volume = volumes.find(
+      const volume = context.volumes.dataObjects.find(
         (element) => element.id === consumption.volumeId
       );
       if (volume) {
@@ -45,7 +36,7 @@ export const Summary: React.FC = () => {
     });
     return result;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [context.consumptions.dataObjects, volumes.length]);
+  }, [context.consumptions.dataObjects.length, context.volumes.dataObjects.length]);
 
   const items = consumptions.map((value) => (
     <SummaryItem
