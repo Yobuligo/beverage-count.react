@@ -6,7 +6,7 @@ import { ConsumptionDAO } from "./ConsumptionDAO";
 import { LocalStorageDAO } from "./LocalStorageDAO";
 
 class SnapshotDefaultDAO extends LocalStorageDAO<ISnapshot> {
-  constructor(private daos: LocalStorageDAO<any>[]) {
+  constructor() {
     super(undefined);
   }
 
@@ -65,4 +65,4 @@ class SnapshotDefaultDAO extends LocalStorageDAO<ISnapshot> {
     });
   }
 }
-export const SnapshotDAO = new SnapshotDefaultDAO([]);
+export const SnapshotDAO = new SnapshotDefaultDAO();
