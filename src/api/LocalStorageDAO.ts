@@ -25,6 +25,13 @@ export abstract class LocalStorageDAO<T extends IHaveId> {
     });
   }
 
+  findByFilter(predicate: (dataObject: T) => boolean): Promise<T[]> {
+    return new Promise(async (resolve) => {
+      const data = await this.findAll();
+      resolve(data.filter((dataObject) => predicate(dataObject)));
+    });
+  }
+
   delete(dataObject: T): Promise<boolean> {
     return new Promise(async (resolve) => {
       const items = await this.findAll();
